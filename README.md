@@ -10,6 +10,7 @@ The project is organized into the following directories and files:
   - `sketch-v1.js`
   - `sketch-v2.js`
   - `sketch-v3.js`
+  - `sketch-v4.js`
 - **audio/**
 - **read.txt**
 - **index.html**
@@ -31,6 +32,7 @@ The project is organized into the following directories and files:
   - `sketch-v1.js`: Initial version of the sketch.
   - `sketch-v2.js`: Second version with improvements.
   - `sketch-v3.js`: Latest version with additional features.
+  - `sketch-v4.js`: Adds multiplayer instead of AI.
 
 - **audio/**: Directory for audio files used in the project.
 
