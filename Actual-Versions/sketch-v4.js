@@ -112,13 +112,17 @@ function setup() {
   canvasWidth = windowWidth - 50;
   createCanvas(canvasWidth, canvasHeight);
   soundSetup();
-  //playerer positions
-  P1X = random(50, canvasWidth - 50);
+  //player positions
+  P1X = random(50, canvasWidth / 2);
   P1Y = (windowHeight - 50) * 0.9;
 
-  P2X = random(50, canvasWidth - 50);
+  P2X = random(canvasWidth / 2, canvasWidth - 50);
   P2Y = (windowHeight - 50) * 0.9;
 
+  let distance = Math.abs(P1X - P2X);
+  if (distance <= canvasWidth * 0.2) {
+    console.log(canvasWidth * 0.2);
+  }
   initializeDayNightCycle();
   createClouds();
   createTreeLocations();
@@ -129,11 +133,48 @@ function setup() {
   /*{ x: canvasWidth, y: canvasHeight, width: 150, height: 20 },*/
 
   platforms = [
-    { x: canvasWidth / 6, y: canvasHeight / 1.9, width: 150, height: 20 },
-    { x: canvasWidth / 2.4, y: canvasHeight / 1.7, width: 200, height: 20 },
-    { x: canvasWidth / 1.7, y: canvasHeight / 2.9, width: 150, height: 20 },
-    { x: canvasWidth / 1.5, y: canvasHeight / 1.3, width: 200, height: 20 },
-    { x: canvasWidth / 1.2, y: canvasHeight / 2, width: 200, height: 20 },
+    {
+      id: 1,
+      x: canvasWidth / 2,
+      y: canvasHeight / 1.3,
+      width: 150,
+      height: 20,
+    },
+    {
+      id: 2,
+      x: canvasWidth / 8,
+      y: canvasHeight / 1.3,
+      width: 150,
+      height: 20,
+    },
+    {
+      id: 3,
+      x: canvasWidth / 1.1,
+      y: canvasHeight / 1.3,
+      width: 150,
+      height: 20,
+    },
+    {
+      id: 4,
+      x: canvasWidth / 1.45,
+      y: canvasHeight / 1.7,
+      width: 200,
+      height: 20,
+    },
+    {
+      id: 5,
+      x: canvasWidth / 3.2,
+      y: canvasHeight / 1.7,
+      width: 200,
+      height: 20,
+    },
+    {
+      id: 6,
+      x: canvasWidth / 2,
+      y: canvasHeight / 2.7,
+      width: 200,
+      height: 20,
+    },
   ];
 }
 
@@ -165,15 +206,15 @@ function draw() {
   P2ColliderCheck();
 
   //Characters
-  if (P2Alive) {
-    createP2();
-  } else if (!P2Alive) {
-    respawnP2();
-  }
   if (P1Alive) {
     createP1();
   } else if (!P1Alive) {
     respawnP1();
+  }
+  if (P2Alive) {
+    createP2();
+  } else if (!P2Alive) {
+    respawnP2();
   }
 }
 
@@ -448,6 +489,7 @@ function P1ColliderCheck() {
         !(P1Y < platform.y)
       ) {
         P1X = platform.x - platform.width / 2 - halfSize;
+        console.log(platform.id + " +");
       }
       //right
       if (
@@ -456,7 +498,7 @@ function P1ColliderCheck() {
         !(P1Y < platform.y)
       ) {
         P1X = platform.x + platform.width / 2 + halfSize;
-        console.log("-");
+        console.log(platform.id + " -");
       }
     }
   }
@@ -505,7 +547,7 @@ function P2ColliderCheck() {
         !(P2Y < platform.y)
       ) {
         P2X = platform.x - platform.width / 2 - halfSize;
-        console.log("+");
+        console.log(platform.id + " +");
       }
       //right
       if (
@@ -514,7 +556,7 @@ function P2ColliderCheck() {
         !(P2Y < platform.y)
       ) {
         P2X = platform.x + platform.width / 2 + halfSize;
-        console.log("-");
+        console.log(platform.id + " -");
       }
     }
   }
@@ -660,6 +702,7 @@ function drawClouds() {
 
       if (cloud.x > width) {
         cloud.x = -cloud.size;
+        cloud.y = random(height / 4);
       }
     }
   }
@@ -670,8 +713,15 @@ function drawClouds() {
 //Player 1
 function createP1() {
   stroke("black");
-  //head
+  fill(0, 0, 255);
+  //Tag
+  textSize(15);
+  text("P1", P1X - 8, P1Y - 50);
   fill(getP1Health());
+  textSize(10);
+  text("███", P1X - 10, P1Y - 38);
+  //head
+  fill(0, 0, 255);
   ellipse(P1X + 15, P1Y - 15, 25);
   ellipse(P1X - 15, P1Y - 15, 25);
   ellipse(P1X, P1Y, size);
@@ -698,8 +748,15 @@ function createP1() {
 //Player 2
 function createP2() {
   stroke("black");
-  //head
+  fill(255, 0, 0);
+  //Tag
+  textSize(15);
+  text("P2", P2X - 8, P2Y - 50);
   fill(getP2Health());
+  textSize(10);
+  text("███", P2X - 10, P2Y - 38);
+  //head
+  fill(255, 0, 0);
   ellipse(P2X + 15, P2Y - 15, 25);
   ellipse(P2X - 15, P2Y - 15, 25);
   ellipse(P2X, P2Y, size);
