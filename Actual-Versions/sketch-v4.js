@@ -30,7 +30,7 @@ let platformX;
 //movement
 let fallSpeed = 4;
 let moveSpeed = 2;
-let maxJumpHeight = 100;
+let maxJumpHeight = 90;
 //sizes
 let size = 50;
 let halfSize = size / 2;
@@ -135,44 +135,44 @@ function setup() {
   platforms = [
     {
       id: 1,
-      x: canvasWidth / 2,
-      y: canvasHeight / 1.3,
+      x: canvasWidth * 0.15,
+      y: canvasHeight / 1.25,
       width: 150,
       height: 20,
     },
     {
       id: 2,
-      x: canvasWidth / 8,
-      y: canvasHeight / 1.3,
+      x: canvasWidth * 0.5,
+      y: canvasHeight / 1.25,
       width: 150,
       height: 20,
     },
     {
       id: 3,
-      x: canvasWidth / 1.1,
-      y: canvasHeight / 1.3,
+      x: canvasWidth * 0.85,
+      y: canvasHeight / 1.25,
       width: 150,
       height: 20,
     },
     {
       id: 4,
-      x: canvasWidth / 1.45,
+      x: canvasWidth * 0.68,
       y: canvasHeight / 1.7,
-      width: 200,
+      width: 175,
       height: 20,
     },
     {
       id: 5,
-      x: canvasWidth / 3.2,
+      x: canvasWidth * 0.32,
       y: canvasHeight / 1.7,
-      width: 200,
+      width: 175,
       height: 20,
     },
     {
       id: 6,
-      x: canvasWidth / 2,
+      x: canvasWidth * 0.5,
       y: canvasHeight / 2.7,
-      width: 200,
+      width: 250,
       height: 20,
     },
   ];
