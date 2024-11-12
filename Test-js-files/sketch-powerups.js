@@ -1,7 +1,7 @@
 p5.disableFriendlyErrors = true;
 
 //Environmental variables
-let audioPlayer;
+let backgroundMusic;
 let jumpSound;
 let enemyDeathSound;
 let attackSound;
@@ -94,12 +94,26 @@ let day = 0;
 let trees = [];
 let treeAmount = 20;
 
+// Power-up variables
+let powerUps = [];
+const powerUpTypes = [
+  "Speed Boost",
+  "Double Jump",
+  "Invincibility",
+  "Extra Health",
+  "Attack Boost",
+];
+const powerUpDuration = 300; // 5 seconds at 60 FPS
+let P1PowerUp = { type: null, timer: 0 };
+let P2PowerUp = { type: null, timer: 0 };
+let p1AttackBoost = 0;
+let p2AttackBoost = 0;
+
 //Other variables
-let name;
 
 //Functions
 function preload() {
-  audioPlayer = createAudio("./audio/Coffee.mp3");
+  backgroundMusic = createAudio("./audio/Coffee.mp3");
   jumpSound = createAudio("./audio/jump-sfx.mp3");
   attackSound = createAudio("./audio/Attack.mp3");
   playerDeathSound = createAudio("./audio/Player-death.mp3");
@@ -196,6 +210,12 @@ function draw() {
   strokeWeight(1);
   createPlatforms();
 
+  //Power-ups
+  createPowerUps();
+  drawPowerUps();
+  checkPowerUpGrab();
+  applyPowerUp();
+
   //Utilities
   checkAttackOnP2();
   checkAttackOnP1();
@@ -228,10 +248,10 @@ function windowResized() {
 }
 
 function gravity() {
-  if (P1Grounded == false) {
+  if (P1Grounded === false) {
     P1Y += fallSpeed;
   }
-  if (P2Grounded == false) {
+  if (P2Grounded === false) {
     P2Y += fallSpeed;
   }
 }
@@ -329,7 +349,7 @@ function P2Movement() {
   if (P2AttackCd > 0) {
     P2AttackCd--;
     if (P2AttackCd === 0) {
-      P2sAttacking = false;
+      P2IsAttacking = false;
       P2HasHitP1 = false;
     }
   }
@@ -344,7 +364,7 @@ function checkAttackOnP2() {
 
     if (distanceX < halfSize * 2 && distanceY < halfSize * 2) {
       attackSound.play();
-      P2Health -= attackPower;
+      P2Health -= attackPower + p1AttackBoost;
       P1HasHitP2 = true;
       console.log(`P2 Health: ${P2Health}`);
 
@@ -364,7 +384,7 @@ function checkAttackOnP1() {
 
     if (distanceX < halfSize * 2 && distanceY < halfSize * 2) {
       attackSound.play();
-      P1Health -= attackPower;
+      P1Health -= attackPower + p2AttackBoost;
       P2HasHitP1 = true;
       console.log(`P1 Health: ${P1Health}`);
 
@@ -660,6 +680,7 @@ function drawStars() {
 //End day and night cycle
 
 //Clouds
+//Create clouds
 function createClouds() {
   for (let i = 0; i < 5; i++) {
     let cloudParts = [];
@@ -683,6 +704,7 @@ function createClouds() {
   }
 }
 
+//Draw clouds
 function drawClouds() {
   if (cycleProgress <= dayDuration / totalCycleDuration) {
     for (let cloud of clouds) {
@@ -803,6 +825,7 @@ function getP2Health() {
   }
 }
 //Trees
+//Create trees at random locations
 function createTreeLocations() {
   for (let i = 0; i < treeAmount; i++) {
     trees.push({
@@ -813,7 +836,7 @@ function createTreeLocations() {
     });
   }
 }
-
+//Draw trees
 function drawTrees() {
   for (let tree of trees) {
     fill(101, 67, 33);
@@ -834,12 +857,117 @@ function drawTrees() {
   }
 }
 
+//Power-Up
+//Creation of powerups (the types are Speed Boost, Double Jump, Invincibility, Extra Health, Attack Boost)
+function createPowerUps() {
+  if (frameCount % 600 === 0) {
+    // Every 10 seconds
+    let type = random(powerUpTypes);
+    let x = random(50, canvasWidth - 50);
+    let y = random(50, canvasHeight - 100);
+    powerUps.push({ type, x, y });
+  }
+}
+
+//Draw power-ups
+function drawPowerUps() {
+  for (let powerUp of powerUps) {
+    switch (powerUp.type) {
+      case "Speed Boost":
+        fill(35, 31, 89);
+        break;
+      case "Double Jump":
+        fill(173, 194, 56);
+        break;
+      case "Invincibility":
+        fill(70, 162, 199);
+        break;
+      case "Extra Health":
+        fill(31, 122, 54);
+        break;
+      case "Attack Boost":
+        fill(71, 14, 11);
+        break;
+    }
+    textSize(12);
+    textAlign(CENTER);
+    text(powerUp.type, powerUp.x, powerUp.y - 10);
+    ellipse(powerUp.x, powerUp.y, 20, 20);
+  }
+}
+
+//Check if player has collected a power-up
+function checkPowerUpGrab() {
+  for (let i = powerUps.length - 1; i >= 0; i--) {
+    let powerUp = powerUps[i];
+    if (dist(P1X, P1Y, powerUp.x, powerUp.y) < 30) {
+      activatePowerUp(P1PowerUp, powerUp.type);
+      powerUps.splice(i, 1);
+    } else if (dist(P2X, P2Y, powerUp.x, powerUp.y) < 30) {
+      activatePowerUp(P2PowerUp, powerUp.type);
+      powerUps.splice(i, 1);
+    }
+  }
+}
+
+//Activate power-up
+function activatePowerUp(playerPowerUp, type) {
+  playerPowerUp.type = type;
+  playerPowerUp.timer = powerUpDuration;
+}
+
+//Apply power-up effects to players
+function applyPowerUp() {
+  applyPowerUpEffect(P1PowerUp, "P1");
+  applyPowerUpEffect(P2PowerUp, "P2");
+}
+
+//Apply power-up effect to player
+function applyPowerUpEffect(playerPowerUp, player) {
+  if (playerPowerUp.timer > 0) {
+    playerPowerUp.timer--;
+
+    switch (playerPowerUp.type) {
+      case "Speed Boost":
+        moveSpeed = 4;
+        break;
+      case "Double Jump":
+        if (player === "P1") P1JumpCounter = maxJumpHeight * 1.5;
+        else P2JumpCounter = maxJumpHeight * 1.5;
+        break;
+      case "Invincibility":
+        if (player === "P1") P1IsInvincible = true;
+        else P2IsInvincible = true;
+        break;
+      case "Extra Health":
+        if (player === "P1" && P1Health < 3) P1Health++;
+        else if (player === "P2" && P2Health < 3) P2Health++;
+        break;
+      case "Attack Boost":
+        if (player === "P1") p1AttackBoost = 1;
+        else p2AttackBoost = 1;
+        break;
+      default:
+        resetPowerUpEffects();
+        break;
+    }
+  }
+}
+
+//Reset power-up effects when the timer runs out
+function resetPowerUpEffects() {
+  moveSpeed = 2;
+  P1IsInvincible = P2IsInvincible = false;
+  p1AttackBoost = p2AttackBoost = 0;
+}
+
 //Sound
+// Function to set up and configure the sound effects and background music
 function soundSetup() {
-  audioPlayer.speed(1);
-  audioPlayer.volume(1);
+  backgroundMusic.speed(1);
+  backgroundMusic.volume(1);
 
   jumpSound.speed(1);
   jumpSound.volume(1);
-  audioPlayer.play();
+  backgroundMusic.play();
 }
