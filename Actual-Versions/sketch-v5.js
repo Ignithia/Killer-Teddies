@@ -63,6 +63,7 @@ let P1Jumping = false;
 let P1AttackCd = 0;
 let P1IsAttacking = false;
 let P1HasHitP2 = false;
+let P1IsInvincible = false;
 
 //P2 variables
 let P2Grounded = false;
@@ -85,6 +86,7 @@ let P2Jumping = false;
 let P2AttackCd = 0;
 let P2IsAttacking = false;
 let P2HasHitP1 = false;
+let P2IsInvincible = false;
 
 //Time variables
 let frame = 0;
@@ -956,7 +958,7 @@ function applyPowerUp() {
 function applyPowerUpEffect(playerPowerUp, player) {
   if (playerPowerUp.timer > 0) {
     playerPowerUp.timer--;
-
+    console.log(playerPowerUp.type, playerPowerUp.timer);
     switch (playerPowerUp.type) {
       case "Speed Boost":
         moveSpeed = 4;
@@ -981,6 +983,14 @@ function applyPowerUpEffect(playerPowerUp, player) {
         resetPowerUpEffects();
         break;
     }
+  } else if (
+    playerPowerUp.timer === 0 &&
+    playerPowerUp.type !== null &&
+    !(playerPowerUp.timer < 0)
+  ) {
+    resetPowerUpEffects();
+    console.log(P1IsInvincible, P2IsInvincible);
+    playerPowerUp.type = null;
   }
 }
 
