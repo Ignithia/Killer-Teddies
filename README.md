@@ -2,7 +2,7 @@
 
 This project is an interactive environment built using p5.js. It features a day-night cycle, moving clouds, platforms, and a character that can move and jump. The environment also includes background music and sound effects.
 
-## Project Structure
+## Project Structure (and possible notes)
 
 The project is organized into the following directories and files:
 
@@ -11,6 +11,7 @@ The project is organized into the following directories and files:
   - `sketch-v2.js`
   - `sketch-v3.js`
   - `sketch-v4.js`
+  - `sketch-v5.js` (This version is not yet fully completed, code still has to be cleaned up and tested for bugs)
 - **audio/**
 - **read.txt**
 - **index.html**
@@ -23,6 +24,7 @@ The project is organized into the following directories and files:
   - `sketch-testattacking.js`
   - `sketch-testclouds.js`
   - `sketch-testrandomplatform.js`
+  - `sketch-testpowerups.js`
 - **To-Do.txt**
 
 ### Directory and File Descriptions
@@ -33,6 +35,7 @@ The project is organized into the following directories and files:
   - `sketch-v2.js`: Second version with improvements.
   - `sketch-v3.js`: Latest version with additional features.
   - `sketch-v4.js`: Adds multiplayer instead of AI.
+  - `sketch-v5.js`: Adds power-ups (will also be cleaner up in the next commit)
 
 - **audio/**: Directory for audio files used in the project.
 
@@ -53,6 +56,7 @@ The project is organized into the following directories and files:
   - `sketch-testattacking.js`: Test sketch for character attacking mechanics.
   - `sketch-testclouds.js`: Test sketch for cloud generation and movement.
   - `sketch-testrandomplatform.js`: Test sketch for random platform generation.
+  -  `sketch-powerups.js`: Test sketch for power-ups and their behaviour in a multiplayer game environment
 
 - **To-Do.txt**: A text file listing tasks and features to be implemented.
 
@@ -71,8 +75,23 @@ The project is organized into the following directories and files:
 
 ## Usage
 
+Version 1.0 - 3.0
+
 - Use the arrow keys or WASD keys to move the character.
 - The character can jump when grounded by pressing the up arrow or 'W' key.
+- Attack is space
+
+Version 4.0+
+
+Player 1 (Blue):
+- Use A or D to move left or right
+- Use W to jump
+- Use space to attack
+  
+Player 2:
+- Use Left arrow or Right arrow to move left or right
+- Use Up arrow to jump
+- Use Right CTRL to attack
 
 ## Contributing
 
