@@ -35,7 +35,7 @@ The project is organized into the following directories and files:
   - `sketch-v2.js`: Second version with improvements.
   - `sketch-v3.js`: Latest version with additional features.
   - `sketch-v4.js`: Adds multiplayer instead of AI.
-  - `sketch-v5.js`: Adds power-ups (will also be cleaner up in the next commit)
+  - `sketch-v5.js`: Adds power-ups (will also be cleaner up in one of the next commits)
 
 - **audio/**: Directory for audio files used in the project.
 
@@ -56,7 +56,7 @@ The project is organized into the following directories and files:
   - `sketch-testattacking.js`: Test sketch for character attacking mechanics.
   - `sketch-testclouds.js`: Test sketch for cloud generation and movement.
   - `sketch-testrandomplatform.js`: Test sketch for random platform generation.
-  -  `sketch-powerups.js`: Test sketch for power-ups and their behaviour in a multiplayer game environment
+  - `sketch-powerups.js`: Test sketch for power-ups and their behaviour in a multiplayer game environment
 
 - **To-Do.txt**: A text file listing tasks and features to be implemented.
 
@@ -84,11 +84,13 @@ Version 1.0 - 3.0
 Version 4.0+
 
 Player 1 (Blue):
+
 - Use A or D to move left or right
 - Use W to jump
 - Use space to attack
-  
+
 Player 2:
+
 - Use Left arrow or Right arrow to move left or right
 - Use Up arrow to jump
 - Use Right CTRL to attack
