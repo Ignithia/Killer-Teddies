@@ -1,3 +1,7 @@
+//Test to simulate day-night cycle
+// Status: Partially successful
+// Reason: The code is working as expected, but the colors are not transitioning smoothly and the sun changes into the moon abruptly.
+
 let dayDuration = 60;
 let nightDuration = 120;
 

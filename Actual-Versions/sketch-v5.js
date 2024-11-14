@@ -1,4 +1,6 @@
-//test for power-ups and how they would function in the game with mutiplayer
+// Version: 5.0
+// This will be made into classes but for now, it will be a single file
+
 p5.disableFriendlyErrors = true;
 
 //Environmental variables

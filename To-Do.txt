@@ -1,16 +1,16 @@
 Known bugs:
-- If you jump from the first to the utmost right platform, you don't land on it because the Y value is already below the platform Y value.
+- If you jump from the first to the utmost right platform, you don't land on it because the Y value is already below the platform Y value. (Version 3 or lower)
 
 Possible plans:
-- Player capable of dying
+- Player capable of dying (added in v4)
 - More enemy types that spawn randomly
-- Random placed platforms
+- Better enemy AI (Jumping and Player targetting) 
+- Random placed platforms (Tested and failed may revisit later)
 - More aesthetics (don't know which yet)
-- Think of more possible aesthetics
-- More world building and exploration
-- Better enemy AI (Jumping and Player targetting)
+- More world building and exploration (May revisit later)
+- Change code into classes (v5 or v6)
 
 Certain To-Do's:
-- Be angry at ChatGPT for providing horrible assistance over and over (Might be a skill issue on my part as well)
-- Fix bugs (unless it becomes a feature)
-- More fixing of bugs 
+- Make power-ups have a visual effect to the player
+- Clean up the code for better readability (v5)
+- Unify the players so it's not lengthy since both contain the same logic pretty much

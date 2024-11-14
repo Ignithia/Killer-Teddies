@@ -1,3 +1,5 @@
+//Test for ambient light effect
+
 let dayDuration = 60.6; // Day lasts for 60.6 seconds
 let nightDuration = 59.4; // Night lasts for 59.4 seconds
 let totalCycleDuration;

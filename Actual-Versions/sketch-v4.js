@@ -1,3 +1,5 @@
+// Version: 4.0
+
 p5.disableFriendlyErrors = true;
 
 //Environmental variables

@@ -1,3 +1,5 @@
+// Test attacking and health system
+
 p5.disableFriendlyErrors = true;
 
 //Environmental variables

@@ -1,3 +1,4 @@
+// Version: 1.0
 p5.disableFriendlyErrors = true;
 //environmental variables
 let audioPlayer;

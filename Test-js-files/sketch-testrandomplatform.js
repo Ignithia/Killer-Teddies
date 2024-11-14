@@ -1,3 +1,7 @@
+//Test to see if random platforms can be generated without issues in gameplay
+//Status: Failed
+//May need to revisit later
+
 p5.disableFriendlyErrors = true;
 
 //Environmental variables
