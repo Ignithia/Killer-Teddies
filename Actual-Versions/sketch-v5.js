@@ -9,6 +9,8 @@ let jumpSound;
 let enemyDeathSound;
 let attackSound;
 let playerDeathSound;
+let powerUpSound;
+let healingSound;
 //Day/Night-cycle
 let dayDuration = 60.6;
 let nightDuration = 59.4;
@@ -123,6 +125,8 @@ function preload() {
   attackSound = createAudio("./audio/Attack.mp3");
   playerDeathSound = createAudio("./audio/Player-death.mp3");
   enemyDeathSound = createAudio("./audio/Enemy-death.mp3");
+  powerUpSound = createAudio("./audio/powerup.mp3");
+  healingSound = createAudio("./audio/healing.mp3");
 }
 
 function setup() {
@@ -946,6 +950,15 @@ function checkPowerUpGrab() {
 function activatePowerUp(playerPowerUp, type) {
   playerPowerUp.type = type;
   playerPowerUp.timer = powerUpDuration;
+
+  switch (playerPowerUp.type) {
+    case "Healing":
+      healingSound.play();
+      break;
+    default:
+      powerUpSound.play();
+      break;
+  }
 }
 
 //Apply power-up effects to players
